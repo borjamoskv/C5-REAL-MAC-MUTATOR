@@ -31,10 +31,10 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 defaults write com.apple.screencapture disable-shadow -bool true
 defaults write com.apple.screencapture type -string "png"
 
-# [5] SAFARI: Privacidad / Debug
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+# [5] SAFARI: Privacidad / Debug (Omitido por Sandboxing C5-REAL)
+# defaults write com.apple.Safari IncludeDevelopMenu -bool true
+# defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
 # [6] COLAPSO DE ESTADO
 echo "Reiniciando subsistemas para forzar la mutación de estado..."
