@@ -33,8 +33,8 @@ defaults write com.apple.dock "expose-group-by-app" -bool false
 defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-defaults write -g com.apple.mouse.scaling 3.0
-defaults write -g com.apple.trackpad.scaling 3.0
+defaults write -g com.apple.mouse.scaling -float 3.0
+defaults write -g com.apple.trackpad.scaling -float 3.0
 
 # --- FASE 4: ENTROPÍA TIPOGRÁFICA Y ANIMACIONES ---
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
@@ -65,7 +65,7 @@ defaults write com.apple.commerce AutoUpdateRestartRequired -bool false
 # --- FASE 6: PRIVACIDAD CORE APPS ---
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
-defaults write com.apple.terminal SecureKeyboardEntry -bool true
+defaults write com.apple.Terminal SecureKeyboardEntry -bool true
 defaults write com.apple.Terminal StringEncodings -array 4
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false 2>/dev/null || true
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
