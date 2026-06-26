@@ -3,17 +3,20 @@
 # Sustitución explícita de automatismos de macOS por control determinista.
 # ==============================================================================
 
-.PHONY: help audit-bin verify-hash update-os check-crashes
+.PHONY: help verify-signature verify-notarization verify-hash update-os check-crashes snapshot-state rollback-state
 
 help:
 	@echo "===================================================================="
 	@echo " C5-REAL RITUALS (Sustitución de Guardrails)"
 	@echo "===================================================================="
 	@echo "Uso:"
-	@echo "  make audit-bin file=<ruta>          (Reemplaza LSQuarantine)"
+	@echo "  make verify-signature file=<ruta>   (Reemplaza LSQuarantine)"
+	@echo "  make verify-notarization file=<ruta>(Verificación Apple Notary)"
 	@echo "  make verify-hash file=<ruta>        (Reemplaza DMG Verify)"
 	@echo "  make update-os                      (Reemplaza AutoUpdate)"
 	@echo "  make check-crashes                  (Reemplaza CrashReporter)"
+	@echo "  make snapshot-state                 (Backup de Dominios OS)"
+	@echo "  make rollback-state                 (Restaura Dominios OS)"
 	@echo "===================================================================="
 
 # [1] Reemplazo de LSQuarantine: Validación manual de firmas
