@@ -82,6 +82,16 @@ defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 defaults write com.apple.helpviewer DevMode -bool true
 
+# --- FASE 7: CORTEX BROWSERS (ENTROPÍA WEB Y DIAGNÓSTICO) ---
+# Erradicación de retención de pestañas y extracción forzosa de "Green Theater" en WebKit.
+defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+
 # --- MODALES (UI GLOBAL) ---
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
