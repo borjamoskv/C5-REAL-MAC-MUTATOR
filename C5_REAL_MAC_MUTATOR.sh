@@ -86,11 +86,29 @@ defaults write com.apple.helpviewer DevMode -bool true
 # Erradicación de retención de pestañas y extracción forzosa de "Green Theater" en WebKit.
 defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
-defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
-defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false 2>/dev/null || true
+defaults write com.apple.Safari IncludeDevelopMenu -bool true 2>/dev/null || true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true 2>/dev/null || true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true 2>/dev/null || true
+defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true 2>/dev/null || true
+
+# Extracción de entropía UI en navegadores Chromium (Chrome/Brave).
+# Deshabilita gestos estocásticos (swipe navigation) y expande diálogos forzosamente.
+for browser in "com.google.Chrome" "com.google.Chrome.canary" "com.brave.Browser" "org.chromium.Chromium"; do
+  defaults write "$browser" AppleEnableSwipeNavigateWithScrolls -bool false 2>/dev/null || true
+  defaults write "$browser" PMPrintingExpandedStateForPrint2 -bool true 2>/dev/null || true
+  defaults write "$browser" DisablePrintPreview -bool true 2>/dev/null || true
+  defaults write "$browser" ConfirmToQuitEnabled -bool false 2>/dev/null || true
+done
+
+# --- FASE 8: TELEMETRÍA Y COGNICIÓN SINTÉTICA (SIRI / SPOTLIGHT) ---
+# Destrucción de sugerencias estocásticas y fugas de datos hacia Apple (Green Theater predictivo).
+defaults write com.apple.assistant.support "Assistant Enabled" -bool false 2>/dev/null || true
+defaults write com.apple.lookup.shared LookupSuggestionsDisabled -bool true 2>/dev/null || true
+defaults write com.apple.spotlight DictionaryLookupEnabled -bool false 2>/dev/null || true
+defaults write com.apple.Safari UniversalSearchEnabled -bool false 2>/dev/null || true
+defaults write com.apple.Safari SuppressSearchSuggestions -bool true 2>/dev/null || true
+defaults write com.apple.SubmitDiagInfo AutoSubmit -bool false 2>/dev/null || true
 
 # --- MODALES (UI GLOBAL) ---
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
