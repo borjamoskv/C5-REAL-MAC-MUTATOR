@@ -17,13 +17,21 @@ help:
 	@echo "===================================================================="
 
 # [1] Reemplazo de LSQuarantine: Validación manual de firmas
-audit-bin:
+verify-signature:
 	@ifndef file
-		$(error ERROR: Debes especificar el archivo. Uso: make audit-bin file=ruta/al/binario)
+		$(error ERROR: Debes especificar el archivo. Uso: make verify-signature file=ruta/al/binario)
 	@endif
 	@echo "[C5-REAL] Evaluando procedencia y firmas (spctl / codesign)..."
 	codesign -dv --verbose=4 "$(file)"
 	spctl --assess --verbose "$(file)"
+
+# [1.5] Reemplazo Adicional: Verificación de Notarización
+verify-notarization:
+	@ifndef file
+		$(error ERROR: Debes especificar el archivo. Uso: make verify-notarization file=ruta/al/binario)
+	@endif
+	@echo "[C5-REAL] Validando Ticket de Notarización de Apple (stapler)..."
+	stapler validate "$(file)"
 
 # [2] Reemplazo de skip-verify: Hash-Pinning explícito
 verify-hash:
@@ -43,3 +51,25 @@ update-os:
 check-crashes:
 	@echo "[C5-REAL] Extrayendo logs de kernel/aplicación recientes..."
 	log show --predicate 'eventMessage contains "crash"' --last 2h --info
+
+# [5] Soberanía Operacional: Reversibilidad de Estado
+snapshot-state:
+	@echo "[C5-REAL] Exportando dominios termodinámicos a ./vault/..."
+	@mkdir -p vault
+	defaults export com.apple.finder vault/finder.plist 2>/dev/null || true
+	defaults export NSGlobalDomain vault/nsglobaldomain.plist 2>/dev/null || true
+	defaults export com.apple.dock vault/dock.plist 2>/dev/null || true
+	defaults export com.apple.ActivityMonitor vault/activitymonitor.plist 2>/dev/null || true
+	defaults export com.apple.Terminal vault/terminal.plist 2>/dev/null || true
+	@echo "[SUCCESS] Instantánea del Estado Físico cristalizada."
+
+rollback-state:
+	@echo "[C5-REAL] Restaurando arquitectura base desde ./vault/..."
+	defaults import com.apple.finder vault/finder.plist 2>/dev/null || true
+	defaults import NSGlobalDomain vault/nsglobaldomain.plist 2>/dev/null || true
+	defaults import com.apple.dock vault/dock.plist 2>/dev/null || true
+	defaults import com.apple.ActivityMonitor vault/activitymonitor.plist 2>/dev/null || true
+	defaults import com.apple.Terminal vault/terminal.plist 2>/dev/null || true
+	@echo "[C5-REAL] Colapsando UI para inyectar el estado previo..."
+	killall Finder Dock SystemUIServer "Activity Monitor" 2>/dev/null || true
+	@echo "[SUCCESS] Estado Termodinámico revertido a la Invariante inicial."
