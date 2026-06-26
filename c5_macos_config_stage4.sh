@@ -21,7 +21,7 @@ defaults write com.apple.terminal SecureKeyboardEntry -bool true
 defaults write com.apple.Terminal StringEncodings -array 4
 
 # [18] MAIL: Sanitización de Metadatos en Portapapeles
-defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false 2>/dev/null || true
 
 # [19] DISK UTILITY: Menús de Depuración Físicos
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
